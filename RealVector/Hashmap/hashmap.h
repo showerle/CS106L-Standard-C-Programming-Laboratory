@@ -76,7 +76,7 @@ public:
      * Notes: recall that you cannot modify the element a const_iterator is pointing to.
      * Also, a const_iterator is not a const iterator!
      */
-    using const_iterator = const HashMapIterator<HashMap, true>;
+    using const_iterator = HashMapIterator<HashMap, true>;
 
     /*
      * Declares that the HashMapIterator class are friends of the HashMap class.
@@ -457,6 +457,11 @@ public:
 
     /* Milestone 2 headers (you need to declare these) */
     // TODO: declare headers for copy constructor/assignment, move constructor/assignment
+    HashMap(const HashMap& other);              // copy constructor
+    HashMap& operator=(const HashMap& other);   // copy assignment
+    HashMap(HashMap&& other);                   // move constructor
+    HashMap& operator=(HashMap&& other);        // move assigment 
+
 
 private:
     /*
@@ -585,3 +590,4 @@ private:
 #include "hashmap.cpp"
 
 #endif // HASHMAP_H
+

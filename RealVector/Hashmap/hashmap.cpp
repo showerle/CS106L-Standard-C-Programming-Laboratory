@@ -270,4 +270,58 @@ std::ostream& operator<<(std::ostream& os, const HashMap<K, M, H>& rhs) {
 
 /* Begin Milestone 2: Special Member Functions */
 
+template <typename K, typename M, typename H>
+HashMap<K, M, H>::HashMap(const HashMap& other) : HashMap(other.bucket_count(), other._hash_function) {
+    for (auto [key, value] : other) {
+        insert({key, value});
+    }
+}
+
+template <typename K, typename M, typename H>
+HashMap<K, M, H>& HashMap<K, M, H>::operator=(const HashMap& other) {
+    if (&other == this) return *this;
+    clear();
+    _hash_function = other._hash_function;
+    for (auto [key, value] : other) {
+        insert({key, value});
+    }
+    return *this;
+}
+
+
+template <typename K, typename M, typename H>
+HashMap<K, M, H>::HashMap(HashMap&& other) :
+    _size{std::move(other._size)},
+    _hash_function{std::move(other._hash_function)},
+    // _size != bucket_count()
+    _buckets_array{other.bucket_count(), nullptr}{
+    for (size_t i = 0; i < other.bucket_count(); ++i){
+        _buckets_array[i] = std::move(other._buckets_array[i]);
+        other._buckets_array[i] = nullptr;
+    }
+
+    other._size = 0;
+}
+
+
+template <typename K, typename M, typename H>
+HashMap<K, M, H>& HashMap<K, M, H>::operator=(HashMap&& other) {
+    if (&other != this) {
+        clear();
+        _size = std::move(other._size);
+        _hash_function = std::move(other._hash_function);
+        _buckets_array.resize(other.bucket_count());
+        for (size_t i = 0; i < other.bucket_count(); ++i){
+            _buckets_array[i] = std::move(other._buckets_array[i]);
+            //  uncomment the this two line will arise failure at line number 1621 in file tests.cpp
+            // other._buckets_array[i] = nullptr;
+        }
+        // other._size = 0;
+    }
+
+    return *this;
+}
+
+
+
 /* end student code */

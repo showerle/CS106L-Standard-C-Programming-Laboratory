@@ -2,8 +2,8 @@
 #include <set>
 using namespace std;
 //UNCOMMENT THESE FOR MILESTONE 2
-// #include "tests.cpp"
-// #include "test_settings.cpp"
+#include "tests.cpp"
+#include "test_settings.cpp"
 #include <iostream>
 
 //declaring functions now so we can use them befpre we implement them!
@@ -25,7 +25,7 @@ int main() {
     } else if (answer == 2) {
         cout << ":P" << endl;
         //UNCOMMENT THIS FOR MILESTONE 2
-        // run_test_harness();
+        run_test_harness();
     } else {
         cout << "Please run your code again and hit 1 or 2 only!";
     }
@@ -36,9 +36,8 @@ int student_main(bool is_const_map) {
     HashMap<string, int> map;
     init_map(map);
     if(is_const_map) {
-        const HashMap<string, int> map{{"Anna", 201}, {"Avery", 2019}, {"Nikhil", 2020},{"Ethan", 2020},
-        {"Frankie", 2021}, {"Sathya", 2021}};
-    } 
+        const HashMap<string, int> map;
+    }
     std::set<string> keys = find_keys(map);
     cout << "Find the difference in time between two lecturers! \n" <<
         "Please enter two names from this list, separated by a space. Then hit ENTER\n" << endl;
